@@ -6,6 +6,7 @@ import numpy as np
 import requests
 import time
 import datetime
+import math
 
 #function to get stock data
 def yahoo_stocks(symbol, start, end):
@@ -39,6 +40,22 @@ def prev_diff(dataframe):
         prev_diff.append(round((close[i]-close[i-1]),6))
     return prev_diff
 
+def moving_avg(dataframe):
+    dataframe["50d"] = np.round(dataframe["Close"].rolling(window = 50, center = False).mean(), 2)
+    z = dataframe['Close'][0:49]
+    dataframe['50d'][0:49] = z
+    return dataframe
+
+def ten_day_volatility(dataframe):
+    volatility = dataframe['Close'].rolling(window=10,center=False).std(ddof=0)
+    # daily_pct_change = stockstats_df['close'] / stockstats_df['close'].shift(1) - 1
+    # volatility2 = daily_pct_change.rolling(window=10,center=False).std(ddof=0) * math.sqrt(10)
+    top = dataframe[0:9]
+    top_vol = top['Close'].rolling(window=2,center=False).std(ddof=0)
+    top_vol[0] = 0
+    volatility[0:9] = top_vol
+    return volatility
+
 def combine_datasets(data1, data2):
     return pd.concat([data1, data2], axis=1)
 
@@ -60,6 +77,8 @@ def getting_final_data(symbol):
 
     #preprocess the data
     stockDataFinal = preprocessing(stockData, startDate, endDate)
+    stockDataFinal = moving_avg(stockDataFinal)
+    stockDataFinal['10d_vol'] = ten_day_volatility(stockDataFinal)
     stockMarketDataFinal = preprocessing(stockData, startDate, endDate)
     stockMarketDataFinal.columns = ['sm_open', 'sm_high', 'sm_low', 'sm_close', 'sm_adj_close', 'sm_volume', 'sm_prev_diff']
     finalData = combine_datasets(stockDataFinal, stockMarketDataFinal)
@@ -70,5 +89,3 @@ def main():
     symbol = raw_input("Enter the Company Symbol: ")
     finalData = getting_final_data(symbol)
     return finalData
-
-print (main().head(5))
