@@ -66,11 +66,16 @@ def preprocessing(data, startDate, endDate):
     dataInterpolated['prev_diff'] = prev_diff(dataInterpolated)
     return dataInterpolated
 
+def remove_missing_values(data):
+    data = data.dropna(axis=0)
+    return data
+
 def getting_final_data(symbol):
     #get 7 year stock data for Apple
     startDate = datetime.datetime(2010, 1, 4)
     endDate = datetime.date.today()
     stockData = yahoo_stocks(symbol, startDate, endDate)
+    stockData = remove_missing_values(stockData)
 
     #getting stock market data for 7 years
     stockMarketData = yahoo_stocks('^GSPC', startDate, endDate)
@@ -82,6 +87,7 @@ def getting_final_data(symbol):
     stockMarketDataFinal = preprocessing(stockData, startDate, endDate)
     stockMarketDataFinal.columns = ['sm_open', 'sm_high', 'sm_low', 'sm_close', 'sm_adj_close', 'sm_volume', 'sm_prev_diff']
     finalData = combine_datasets(stockDataFinal, stockMarketDataFinal)
+    finalData = remove_missing_values(finalData)
     return finalData
 
 #main function to call to get data

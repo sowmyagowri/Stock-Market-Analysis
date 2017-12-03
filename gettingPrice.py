@@ -15,7 +15,7 @@ import datetime
 import matplotlib.pyplot as plt
 plt.rcParams["figure.figsize"] = (15,5)
 from statsmodels.tsa.arima_model import ARIMA
-from sklearn.metrics import mean_squared_error
+
 
 
 # In[20]:
