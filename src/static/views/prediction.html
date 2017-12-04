@@ -1,0 +1,38 @@
+<style>
+.myDiv{
+ 	width:100%;
+	height:100%;
+  	background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.1) 100%), url("static/css/images/bg.jpg"); 
+  	background-repeat:no-repeat; 
+  	background-size: cover;
+}
+
+.innerDiv{
+	position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+    
+    
+</style>
+
+<div class="myDiv">
+
+  <div class="innerDiv"  id="stockPricePrediction" ng-init="predictstockprices()" ng-app='sampleApp' ng-controller="PredictionController">
+  	
+  	<br><br>{{stringValue1}}<br>
+  	{{stringValue2}}<br>
+  	{{stringValue3}}
+  	
+  </div>
+ 
+</div>
