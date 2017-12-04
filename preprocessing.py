@@ -92,6 +92,6 @@ def getting_final_data(symbol):
 
 #main function to call to get data
 def main():
-    symbol = raw_input("Enter the Company Symbol: ")
+    symbol = input("Enter the Company Symbol: ")
     finalData = getting_final_data(symbol)
     return finalData

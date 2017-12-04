@@ -17,7 +17,7 @@ X, y, today = reg_data_preprocessing(finalData)
 # print (y.shape)
 
 #splitting the splitting the dataset
-X_train, y_train, X_test, y_test = split_dataset(X, y, 0.80)
+X_train, y_train, X_test, y_test = split_dataset(X, y, 0.90)
 
 # print('Size of train set: ', X_train.shape)
 # print('Size of test set: ', X_test.shape)

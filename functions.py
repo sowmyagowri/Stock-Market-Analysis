@@ -17,6 +17,9 @@ def predict_prices(company):
     data = data.reset_index()
 
     del data['index']
+    del data['Open']
+    del data['High']
+    del data['Low']
     # del data['prev_diff']
     # del data['50d']
     # del data['10d_vol']
@@ -24,8 +27,8 @@ def predict_prices(company):
     del data['sm_high']
     del data['sm_low']
     del data['sm_adj_close']
-    del data['sm_volume']
-    # del data['sm_prev_diff']
+    # del data['sm_volume']
+    del data['sm_prev_diff']
 
     data, stockLabel, stockData_predict, stockData_actual = nn_data_preprocessing(data)
     stockData_predict = np.asarray(stockData_predict).reshape(1,-1)
@@ -42,7 +45,7 @@ def predict_prices(company):
 
     # Training and test data
     train_start = 0
-    train_end = int(np.floor(0.8*n))
+    train_end = int(np.floor(0.9*n))
     test_start = train_end
     test_end = n
     data_train = data[np.arange(train_start, train_end), :]
