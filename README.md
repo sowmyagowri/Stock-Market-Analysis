@@ -7,3 +7,10 @@ This project aims at predicting the Stock price of a company given Stock symbol 
   pip install -r requirements.txt
 * Run the application:
   python app.py
+* The application will run on local host port 8080
+* Enter the company stock symbol in the text box and click Submit
+* The prediction for the input will be displayed based on Artificial Neural Network forecast model as shown below:
+
+![whatsapp image 2017-12-04 at 12 49 08 am](https://user-images.githubusercontent.com/20146538/33543745-05f202fc-d88d-11e7-8778-a8f1fc9478ee.jpeg)
+
+![whatsapp image 2017-12-04 at 12 49 04 am](https://user-images.githubusercontent.com/20146538/33543762-12174074-d88d-11e7-9590-ac67a4f4b65a.jpeg)
