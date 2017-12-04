@@ -1,0 +1,11 @@
+<style>
+
+	body {height:100%; overflow-y:hidden; background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.1) 100%), url("static/css/images/stockMarket.jpg"); background-repeat:no-repeat; background-size: cover}
+</style>
+
+<div ng-controller="MainController" style="text-align: center;vertical-align: middle; margin-top: 15%;">
+  <form id="form" novalidate class="simple-form" align="center">
+    <input style="font-size:25px;background-color : #ceffd1;" type="text" autofocus="autofocus" class="wide-font set-width" size="20" ng-model="company" name="stockSymbol" placeholder="Enter a Stock Symbol"/>
+    <button style="font-size:25px;background-color : #ceffd1" type="submit" ng-click="getStockPrice()" value="Submit">Submit</button>
+  </form>
+</div>

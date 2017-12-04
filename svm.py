@@ -2,35 +2,17 @@ from preprocessing import *
 from helpers_regressor import *
 from sklearn.svm import SVR
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+import matplotlib.pyplot as plt
 
 finalData = main()
-# print (finalData.head(5))
 
 #shifting the dataset,
 X, y, today = reg_data_preprocessing(finalData)
 
-# print ("Type and shape of X")
-# print (type(X))
-# print (X.shape)
-# print ("Type and shape of y")
-# print (type(y))
-# print (y.shape)
-
 #splitting the splitting the dataset
 X_train, y_train, X_test, y_test = split_dataset(X, y, 0.90)
 
-# print('Size of train set: ', X_train.shape)
-# print('Size of test set: ', X_test.shape)
-# print('Size of train set: ', y_train.shape)
-# print('Size of test set: ', y_test.shape)
-#
-# print('Type of train set: ', type(X_train))
-# print('type of test set: ', type(X_test))
-# print('Type of train set: ', type(y_train))
-# print('Type of test set: ', type(y_test))
-
 scaler = StandardScaler()
-# scaler = MinMaxScaler()
 print(scaler.fit(X_train))
 StandardScaler(copy=True, with_mean=True, with_std=True)
 X_train_transform = scaler.transform(X_train)
@@ -56,3 +38,9 @@ scaled_predictions = scaler_y.inverse_transform(predictions)
 error = get_mse(y_test, scaled_predictions)
 print ("MSE:")
 print (error)
+
+# plot
+plt.plot(y_test.as_matrix(), color='blue')
+plt.plot(scaled_predictions, color='red')
+plt.savefig("images/svm.png")
+plt.show()

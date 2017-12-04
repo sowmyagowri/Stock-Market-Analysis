@@ -1,36 +1,36 @@
-from flask import Flask, render_template, flash, request
-from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+from flask import Flask, render_template, request, make_response, url_for, flash, redirect, session, abort, jsonify,g
+import json
+from jsonschema import validate, ValidationError
+# from flask_httpauth import HTTPBasicAuth
+from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
+from functions import *
+import  myexception
 
-# App config.
-DEBUG = True
 app = Flask(__name__)
-app.config.from_object(__name__)
-app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
-class ReusableForm(Form):
-    name = TextField('Name:', validators=[validators.required()])
-    email = TextField('Email:', validators=[validators.required(), validators.Length(min=6, max=35)])
-    password = TextField('Password:', validators=[validators.required(), validators.Length(min=3, max=35)])
+# auth = HTTPBasicAuth()
 
+@app.errorhandler(myexception.MyExceptions)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
-@app.route("/", methods=['GET', 'POST'])
-def hello():
-    form = ReusableForm(request.form)
+#home route
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    print form.errors
-    if request.method == 'POST':
-        name=request.form['name']
-        password=request.form['password']
-        email=request.form['email']
-        print name, " ", email, " ", password
+#stock prices trend api
+@app.route('/prediction', methods=['GET', 'POST'])
+def get_prediction():
 
-        if form.validate():
-            # Save the comment here.
-            flash('Thanks for registration ' + name)
-        else:
-            flash('Error: All the form fields are required. ')
+     print (request.json)
+     company = request.json
+     print (company)
+     result = predict_prices(company)
+     print(result)
+     return json.dumps(result)
 
-    return render_template('index.html', form=form)
-
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug = True, host='localhost', threaded=False, port=8080)

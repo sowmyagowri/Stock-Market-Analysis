@@ -30,15 +30,15 @@ def predict_prices(company):
     # del data['sm_volume']
     del data['sm_prev_diff']
 
-    data, stockLabel, stockData_predict, stockData_actual = nn_data_preprocessing(data)
+    data, stockLabel, stockData_predict, stockData_prev, stockData_actual = nn_data_preprocessing(data)
     stockData_predict = np.asarray(stockData_predict).reshape(1,-1)
 
     # Dimensions of dataset
     n = data.shape[0]
     p = data.shape[1]
 
-    print (n)
-    print (p)
+    # print (n)
+    # print (p)
 
     #Make data a numpy array
     data = data.values
@@ -173,11 +173,11 @@ def predict_prices(company):
 
     print (pred1)
 
-    # # Print final MSE after Training
     mse_final = net.run(mse, feed_dict={X: X_test, Y: y_test})
-    print(mse_final)
-    result = pred1.tolist()
+    print("The Mean Squared Error is " + str(mse_final))
+    result = list()
+    result.append(round(pred1.tolist()[0][0],2))
+    result.append(round(stockData_prev,2))
+    result.append(round(stockData_actual,2))
 
-    return round(result[0][0],2)
-
-predict_prices("aapl")
+    return result

@@ -18,15 +18,31 @@ def nn_data_preprocessing(data):
     stockClose = pd.DataFrame()
     stockClose['Close'] = data['Close']
     today = data.iloc[-3].tolist()
-    stockData_actual = today[-4]
+    stockData_prev = today[-8]
+    stockData_actual = data.iloc[-2].tolist()[-8]
     stockLabel = pd.DataFrame()
     stockLabel = stockClose.copy()
     stockLabel.drop([0])
     stockLabel.drop([1])
     # stockLabel.drop([2])
-    stockData = data[0:len(data) - 3]
+    stockData = data[0:len(data) - 4]
     data = stockData
-    return data, stockLabel, today, stockData_actual
+    return data, stockLabel, today, stockData_prev, stockData_actual
 
 def get_mse(actual, prediction):
     return mean_squared_error(actual, prediction)
+
+# def nn_data_preprocessing(data):
+#     stockClose = pd.DataFrame()
+#     stockClose['Close'] = data['Close']
+#     today = data.iloc[-4].tolist()
+#     stockData_prev = today[-8]
+#     stockData_actual = data.iloc[-3].tolist()[-8]
+#     stockLabel = pd.DataFrame()
+#     stockLabel = stockClose.copy()
+#     stockLabel.drop([0])
+#     stockLabel.drop([1])
+#     # stockLabel.drop([2])
+#     stockData = data[0:len(data) - 5]
+#     data = stockData
+#     return data, stockLabel, today, stockData_prev, stockData_actual
