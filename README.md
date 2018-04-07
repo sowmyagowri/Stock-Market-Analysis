@@ -2,6 +2,11 @@
 
 This project aims at predicting the Stock price of a company given Stock symbol as an input. The output price is compared with the actual price. Also, the relation between twitter sentiments and the stock price change is studied. Does stock price depends on the twitter sentiments of that company?
 
+### Team Members
+1. [Sowmya Gowrishankar](https://github.com/sowmyagowri)
+2. [Manika Kapoor](https://github.com/manika1511)
+3. [Masi Nazarian](https://github.com/Masea)
+
 The front-end has been developed in angular.js and backend is in python flask framework.
 
 ## Environment setup
